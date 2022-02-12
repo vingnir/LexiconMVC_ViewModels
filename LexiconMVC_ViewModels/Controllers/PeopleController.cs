@@ -88,7 +88,7 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpGet]
         public JsonResult Delete(string id)
         {
-            string result = "Not found";
+            string result = "Not found test";
             return Json(result);
         }
 
@@ -105,20 +105,29 @@ namespace LexiconMVC_ViewModels.Controllers
 
         //PartialView Actions
         [HttpGet]
-        public IActionResult Last()
+        public IActionResult People()
         {
             List<PersonData> personData = _personDataService.GetList();
-            PersonData lastInfo = new PersonData();
+            PeopleViewModel people;
 
-            foreach (PersonData item in personData)
+            List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>(); 
+
+            if(personData !=null)
             {
-                if (item.Id > lastInfo.Id)
+                foreach (PersonData item in personData)
                 {
-                    lastInfo = item;
+                    people = new PeopleViewModel();
+
+                    people.Id = item.Id;
+                    people.Name = item.Name;
+                    people.City = item.City;
+                    listOfPeople.Add(people);
                 }
+                return PartialView("_People", listOfPeople);
             }
 
-            return PartialView("_personData", lastInfo);
+            return PartialView("_People");
+
         }
 
         // GET: PeopleController/Search
