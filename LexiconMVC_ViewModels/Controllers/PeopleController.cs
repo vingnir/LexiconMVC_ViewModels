@@ -4,8 +4,6 @@ using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LexiconMVC_ViewModels.Controllers
 {
@@ -75,41 +73,34 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, CreatePersonViewModel createViewModel)
-        {
-
-            if (ModelState.IsValid)
-            {
+        {            
                 PersonData personData = _personDataService.Edit(id, createViewModel);
 
                 if (personData == null)
                 {
                     return RedirectToAction(nameof(Index), "People");
-                }
-                return View(personData);
-            }
+                }           
 
-            return View();
+            return View(personData);
         }
 
         // GET: PeopleController/Delete/5
         [HttpGet]
-        public ActionResult Delete(int id)
+        public JsonResult Delete(string id)
         {
-            return View();
+            string result = "Not found";
+            return Json(result);
         }
 
         // POST: PeopleController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, bool confirm)
+        //[ValidateAntiForgeryToken]
+        public JsonResult Delete(string id, bool confirm)
         {
-            confirm = _personDataService.Delete(id);
-            if (!confirm)
-            {
-                return RedirectToAction(nameof(Index));
-            }
 
-            return View();
+            string result = string.Format("Ajax call made at {0}", DateTime.Now + id);
+           
+            return Json(result);
         }
 
         //PartialView Actions
