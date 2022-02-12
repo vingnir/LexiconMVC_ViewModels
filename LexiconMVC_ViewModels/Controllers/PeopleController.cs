@@ -50,16 +50,16 @@ namespace LexiconMVC_ViewModels.Controllers
         }
 
         // GET: PeopleController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             PersonData personData = _personDataService.GetById(id);
 
             if (personData == null)
             {
-                return RedirectToAction(nameof(Index));
+                return PartialView("_Details");
             }
-
-            return View(personData);
+            return PartialView("_Details", personData);
+           
         }
 
         // GET: PeopleController/Edit/5
