@@ -1,0 +1,30 @@
+﻿@model List<PersonData>
+@{
+    ViewData["Title"] = "Partial View Version";
+}
+
+<h2>People Partial view</h2>
+
+
+<div class="row p-3">
+    <div class="btn btn-success btn-sm rounded-0 ">
+        <a asp-action="Create" asp-controller="People" class="p-2 text-light" style="text-decoration:none">Create new</a><i class="fa fa-add"></i>
+    </div>
+</div>
+
+<div class="div-table">
+    <div class="trow">
+        <div class="tcolumn tcolumn1">Id</div>
+        <div class="tcolumn tcolumn2">Name</div>
+        <div class="tcolumn tcolumn3">City</div>
+        <div class="tcolumn tcolumn4">Phone</div>
+    </div>   
+        <partial name="_People"  />
+   
+</div>
+
+
+
+
+
+

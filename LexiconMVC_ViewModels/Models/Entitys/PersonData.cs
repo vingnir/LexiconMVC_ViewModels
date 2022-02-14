@@ -16,6 +16,7 @@ namespace LexiconMVC_ViewModels.Models.Entitys
         public string Name { get; set; }
         [Required]
         public string City { get; set; }
+        public string PhoneNumber { get; set; }
 
         public DateTime Created { get; set; }
         public DateTime Edited { get; set; }

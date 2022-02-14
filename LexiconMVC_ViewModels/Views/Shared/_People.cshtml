@@ -1,36 +1,42 @@
 ﻿
 @model List<PeopleViewModel>
 
-
-<table class="table">
-    <tr>
-        <th>
-            Id
-        </th>
-        <th>
-            Name
-        </th>
-
-        <th>
-            City
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-<tr>
-    <td id="name">
-        @Html.DisplayFor(modelItem => item.Id)
-    </td>
-    <td id="name">
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.City)
-    </td>
-
-    
-</tr>
+<style>
+    .div-table {
+        display: table;
+        width: 100%;
+        overflow: scroll;
+        background-color: #eee;
+        border-spacing: 2px;
+        border-radius: 4px
     }
 
-</table>
-<br />
+    .trow {
+        display: table-row
+    }
+
+    .tcolumn {
+        display: table-cell;
+        vertical-align: top;
+        background-color: #fff;
+        padding: 10px 8px
+    }
+
+    .tcolumn1 {
+        width: 240px
+    }
+</style>
+@if (@Model != null)
+{
+@foreach (PeopleViewModel item in Model)
+{
+    <div class="trow">
+        <div class="tcolumn">@Html.DisplayFor(modelItem => item.Id)</div>
+        <div class="tcolumn">@Html.DisplayFor(modelItem => item.Name)</div>
+        <div class="tcolumn">@Html.DisplayFor(modelItem => item.City)</div>
+        <div class="tcolumn">@Html.DisplayFor(modelItem => item.PhoneNumber)</div>
+    </div>
+}
+}
+
+

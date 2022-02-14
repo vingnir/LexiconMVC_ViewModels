@@ -1,33 +1,6 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
 
-
-
-
-$("#create").on('click', function () {
-
-
-    $.ajax //Create Ajax call
-        ({
-            type: "GET", // Here we will use  "GET" method, as we are getting data
-            url: "/People/Create", // Url of service/controller
-            // dataType: "json", //Datatype 
-
-            // data: { id: ID },//This is how we post data inside braces like {fieldName: value, fieldName2: value and so on}
-            success: function (result) { //results returned from server on success
-                //Do something
-                $("#people").html(result);
-            },
-            error: function () {
-                //something went wrong 
-                alert("Error")
-            }
-        })
-
-})
-
-
-
 // Write your JavaScript code.
 $("#details").on('click', function () {
     var ID = $("#inputId").val(); //retrieve id from textbox with id
@@ -56,7 +29,7 @@ $("#showPeople").on('click', function () {
     $.ajax //Create Ajax call
         ({
             type: "GET", // Here we will use  "GET" method, as we are getting data
-            url: "/People/People", // Url of service/controller
+            url: "/Ajax/People", // Url of service/controller
            // dataType: "json", //Datatype 
 
            // data: { id: ID },//This is how we post data inside braces like {fieldName: value, fieldName2: value and so on}
@@ -71,3 +44,7 @@ $("#showPeople").on('click', function () {
         })
 })
 
+function submitDeleteForm() {
+    alert("test");
+    document.getElementById('formTest').submit();
+}

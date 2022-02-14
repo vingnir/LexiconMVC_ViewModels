@@ -10,6 +10,7 @@ namespace LexiconMVC_ViewModels.Models.Repo
     {
         private static int idCounter = 0;
         private static List<PersonData> listOfPersonData = new List<PersonData>();
+        private static bool listPopulated;
 
         public PersonData Create(PersonData personData)
         {
@@ -17,14 +18,16 @@ namespace LexiconMVC_ViewModels.Models.Repo
             newPersonData.Id = ++idCounter;
             newPersonData.Name = personData.Name;
             newPersonData.City = personData.City;
-            newPersonData.Created = System.DateTime.Now;
-
+            newPersonData.PhoneNumber = personData.PhoneNumber;
+            newPersonData.Created = System.DateTime.Now;           
             listOfPersonData.Add(newPersonData);
             return newPersonData;
         }
 
         public List<PersonData> Read()
         {
+            if (!listPopulated) { PopulateList(); }
+
             return listOfPersonData;
         }
 
@@ -44,6 +47,7 @@ namespace LexiconMVC_ViewModels.Models.Repo
 
             original.Name = personData.Name;
             original.City = personData.City;
+            original.PhoneNumber = personData.PhoneNumber;
             original.Edited = System.DateTime.Now;
 
             return original;
@@ -60,5 +64,25 @@ namespace LexiconMVC_ViewModels.Models.Repo
 
             return listOfPersonData.Remove(original);
         }
+
+        public static void PopulateList()
+        {
+            string[] names = { "Kalle Kanin", "Kalle Anka", "Donald Duck", "Mimmy Mouse" };
+            string[] citys = { "Göteborg", "Stockholm", "Oslo", "Berlin" };
+            string[] phone = { "070-123456", "070-987456", "070-111111", "070-963258" };
+
+            for (int i = 1; i < names.Length; i++)
+            {
+                PersonData newPersonToList = new PersonData();
+                newPersonToList.Id = ++idCounter;
+                newPersonToList.Name = names[i];
+                newPersonToList.City = citys[i];
+                newPersonToList.PhoneNumber = phone[i];
+                newPersonToList.Created = System.DateTime.Now;
+                listOfPersonData.Add(newPersonToList);
+            }
+            listPopulated = true;
+        }
+
     }
 }

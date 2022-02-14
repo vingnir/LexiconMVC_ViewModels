@@ -1,6 +1,7 @@
 ﻿using LexiconMVC_ViewModels.Models.Entitys;
 using LexiconMVC_ViewModels.Models.Repo;
 using LexiconMVC_ViewModels.Models.ViewModels;
+using LexiconMVC_ViewModels.Models.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +27,8 @@ namespace LexiconMVC_ViewModels.Models.Services
             PersonData newPersonData = new PersonData()
             {
                 Name = personDataVM.Name,
-                City = personDataVM.City
+                City = personDataVM.City,
+                PhoneNumber = personDataVM.PhoneNumber
             };
 
             PersonData personData = _personDataRepo.Create(newPersonData);
@@ -71,7 +73,8 @@ namespace LexiconMVC_ViewModels.Models.Services
             {
                 Id = id,
                 Name = personData.Name,
-                City = personData.City
+                City = personData.City,
+                PhoneNumber = personData.PhoneNumber
             };
             return _personDataRepo.Update(editPersonData);
         }

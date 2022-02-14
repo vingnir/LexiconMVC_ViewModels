@@ -1,32 +1,64 @@
 ﻿@model List<PersonData>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "People";
 }
 
 <h2>People</h2>
 
-<div class="row p-3">
-    <btn id="create" class="btn btn-success btn-sm rounded-0">
-        <span class="p-2">Create</span><i class="fa fa-add"></i>
-    </btn>
+<div class="pt-3">
+    <form asp-action="Search">
+        <input type="text" name="text"  id="searchId" />
+        <button type="submit" class="btn btn-info btn-sm rounded-0 mb-1" >Search <i class="fa fa-search"></i></button>
+    </form>
 </div>
 
-
-<div class="pt-3">
-   
-    <div>
-        <p>Enter id and select operation </p>
-        <input type="text" class="pt-2" id="inputId" />
-        <button id="details" class="btn btn-success rounded-0 ms-1" style="margin-bottom:10px;" type="button" data-toggle="tooltip" data-placement="top" title="Details"><i class="fa fa-table"></i></button>
-        <button class="btn btn-danger rounded-0" type="button" style="margin-bottom:10px;" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+<div class="row p-3 mb-5">
+    <div class="btn btn-success btn-sm rounded-0 ">
+        <a asp-action="Create" asp-controller="People" class="p-2 text-light" style="text-decoration:none">Create new</a><i class="fa fa-add"></i>
     </div>
 </div>
 
-<div class="row p-3">
-    <div class="btn btn-outline-dark " id="showPeople">Show People</div>
-</div>
+<div class="row">
+    <div class="col">
+        <table id="peopleTable" class="table table-striped" >
+            <thead>
+                <tr>
+                    <th scope="col">Id#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Phone</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (@Model != null)
+                {
+                    @foreach (PersonData item in Model)
+                    {
+                <tr>
+                    <th scope="row">@item.Id</th>
+                    <td>@item.Name</td>
+                    <td>@item.City</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>
+                        <!-- Call to action buttons -->
+                        <ul class="list-inline m-0">
+                            <li class="list-inline-item">
+                                <a href="@Url.Action("Edit", "People", new { id=item.Id  })" title="Edit" class="btn btn-primary btn-sm rounded-0"> <i class="fa fa-edit"></i></a>
+                            </li>
+                            <li class="list-inline-item">
 
-<div id="people"></div>
+                                <a href="@Url.Action("Delete", "People", new { id=item.Id  })" title="Delete" class="btn btn-danger btn-sm rounded-0"> <i class="fa fa-trash"></i></a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
 
 
 

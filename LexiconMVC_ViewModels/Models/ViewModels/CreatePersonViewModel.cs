@@ -21,12 +21,15 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
 
         public string City { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         public CreatePersonViewModel() { }
 
-        public CreatePersonViewModel(string name, string city)
+        public CreatePersonViewModel(string name, string city, string phoneNumber)
         {
             Name = name;
             City = city;
+            PhoneNumber = phoneNumber;
         }
     }
 }

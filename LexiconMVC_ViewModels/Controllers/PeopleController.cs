@@ -32,8 +32,12 @@ namespace LexiconMVC_ViewModels.Controllers
         // POST: PeopleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CreatePersonViewModel createViewModel)
+        public ActionResult Create(string name, string city, string phone)
         {
+            CreatePersonViewModel createViewModel = new CreatePersonViewModel();
+            createViewModel.Name = name;
+            createViewModel.City = city;
+            createViewModel.PhoneNumber = phone;
             if (ModelState.IsValid)
             {
                 PersonData personData = _personDataService.Add(createViewModel);
@@ -66,7 +70,12 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View();
+            PersonData personData = _personDataService.GetById(id);
+            if (personData == null)
+            {
+                return RedirectToAction(nameof(Index), "People");
+            }
+            return View(personData);
         }
 
         // POST: PeopleController/Edit/5
@@ -86,55 +95,39 @@ namespace LexiconMVC_ViewModels.Controllers
 
         // GET: PeopleController/Delete/5
         [HttpGet]
-        public JsonResult Delete(string id)
+        public IActionResult Delete(int id)
         {
-            string result = "Not found test";
-            return Json(result);
+            PersonData personData = _personDataService.GetById(id);
+            if (personData == null)
+            {
+                return RedirectToAction(nameof(Index), "People");
+            }
+            return View("Delete", personData);
         }
 
         // POST: PeopleController/Delete/5
         [HttpPost]
         //[ValidateAntiForgeryToken]
-        public JsonResult Delete(string id, bool confirm)
+        public ActionResult Delete(int id, bool confirm)
         {
+            confirm = _personDataService.Delete(id);
+            if (confirm)
+            {
+                return RedirectToAction(nameof(Index), "People");
+                //return View("Index");
+            }
 
-            string result = string.Format("Ajax call made at {0}", DateTime.Now + id);
-           
-            return Json(result);
+
+            return View("Create");
         }
 
         //PartialView Actions
-        [HttpGet]
-        public IActionResult People()
-        {
-            List<PersonData> personData = _personDataService.GetList();
-            PeopleViewModel people;
-
-            List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>(); 
-
-            if(personData !=null)
-            {
-                foreach (PersonData item in personData)
-                {
-                    people = new PeopleViewModel();
-
-                    people.Id = item.Id;
-                    people.Name = item.Name;
-                    people.City = item.City;
-                    listOfPeople.Add(people);
-                }
-                return PartialView("_People", listOfPeople);
-            }
-
-            return PartialView("_People");
-
-        }
-
+        
         // GET: PeopleController/Search
         [HttpGet]
         public ActionResult Search()
         {
-            return View();
+            return View("Index");
         }
 
         // GET: PeopleController/Search
@@ -148,8 +141,13 @@ namespace LexiconMVC_ViewModels.Controllers
             {
                 return RedirectToAction(nameof(Index));
             }
-            return View(searchResult);
+            return View("Index",searchResult);
 
+        }
+
+        public IActionResult IndexPartial()
+        {
+            return View(_personDataService.GetList());
         }
     }
 }
