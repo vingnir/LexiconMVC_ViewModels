@@ -23,6 +23,28 @@ $("#details").on('click', function () {
         })
 })
 
+$("#delete").on('click', function () {
+    var ID = $("#inputId").val(); //retrieve id from textbox with id
+    console.log(ID);
+    $.ajax //Create Ajax call
+        ({
+            type: "POST", // Here we will use  "GET" method, as we are getting data
+            url: "/Ajax/Delete", // Url of service/controller
+            // dataType: "json", //Datatype 
+
+            data: { id: ID },//This is how we post data inside braces like {fieldName: value, fieldName2: value and so on}
+            success: function (result) { //results returned from server on success
+                //Do something
+                var msg = "Deleted from system";
+                $("#people").html(result + msg);
+            },
+            error: function () {
+                //something went wrong 
+                alert("Error")
+            }
+        })
+})
+
 $("#showPeople").on('click', function () {
     var ID = $("#inputId").val(); //retrieve id from textbox with id
     console.log(ID);

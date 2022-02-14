@@ -147,7 +147,28 @@ namespace LexiconMVC_ViewModels.Controllers
 
         public IActionResult IndexPartial()
         {
-            return View(_personDataService.GetList());
+            List<PersonData> personData = _personDataService.GetList();
+            PeopleViewModel people;
+
+            List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>();
+
+            if (personData != null)
+            {
+                foreach (PersonData item in personData)
+                {
+                    people = new PeopleViewModel();
+
+                    people.Id = item.Id;
+                    people.Name = item.Name;
+                    people.City = item.City;
+                    people.PhoneNumber = item.PhoneNumber;
+                    listOfPeople.Add(people);
+                }
+                
+            }
+
+           
+            return View(listOfPeople);
         }
     }
 }

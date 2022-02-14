@@ -1,0 +1,121 @@
+﻿/* About section */
+
+$purple-theme: linear-gradient(to right, #4458dc 0%, #854fee 100%), radial-gradient(circle at top left, #4458dc, #854fee);
+#aboutSection {
+    .about {
+        text-align: center;
+        padding: 2rem 2rem 10rem 0;
+        margin-bottom: 1em;
+        font-family: 'Nunito Sans', sans-serif !important;
+        color: black;
+        font-weight: 500;
+        opacity: 80%;
+    }
+
+    .title {
+        font-weight: 600;
+        font-family: 'Nunito Sans', sans-serif !important;
+    }
+
+    .description {
+        margin: 4rem auto 2rem auto;
+        opacity: 90%;
+        color: #f3f3f3;
+       
+
+    }
+
+    .description-info {
+        background: $purple-theme;
+        border-radius: 26px;
+        font-size: 90%;
+        padding: 1rem;
+    }
+
+    .terminal {
+        width: 80%;
+        margin: -11rem auto 3rem auto;
+        text-align: left;
+        color: #46b5d1;
+        padding: 0 1rem;
+        border-radius: 4px;
+        background-color: white;
+        min-height: 350px;
+        box-shadow: 0px 12px 36.8px 9.2px rgba(0, 0, 0, 0.1);
+    }
+    /* Animation fade  */
+    .terminal {
+        animation: fadeIn 2s;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+    }
+
+    @-webkit-keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+
+    .fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+    }
+
+    .terminal pre {
+        white-space: pre-line;
+        padding-top: 1rem;
+        min-height: 330px;
+    }
+
+    .code-box {
+        display: block;
+        overflow-x: auto;
+        padding: 0.5em;
+        background: white;
+        color: #241010;
+    }
+    /* code */
+    .code {
+        border-radius: 3px;
+        font-family: Space Mono, SFMono-Regular, Menlo,Monaco, Consolas, Liberation Mono, Courier New, monospace;
+        background: var(--bg-color);
+        border: 1px solid var(--code-bg-color);
+        color: var(--primary-color-light);
+    }
+
+    .code--block {
+        white-space: pre-line;
+        padding: 0 1.5rem;
+    }
+
+    .code--inline {
+        padding: 3px 6px;
+        font-size: 80%;
+    }
+
+
+
+    .attribute {
+        color: #cda869 !important;
+    }
+
+    .dollar-sign {
+        color: #a5c261;
+    }
+} /* End About section */

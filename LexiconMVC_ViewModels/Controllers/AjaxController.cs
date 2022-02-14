@@ -46,7 +46,33 @@ namespace LexiconMVC_ViewModels.Controllers
             }
 
             return PartialView("_People", listOfPeople);
+        }
 
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            PersonData personData = _personDataService.GetById(id);
+            if (personData == null)
+            {
+                return RedirectToAction(nameof(Index), "People");
+            }
+            return PartialView("_People", personData);
+        }
+
+        // POST: PeopleController/Delete/5
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, bool confirm)
+        {
+            confirm = _personDataService.Delete(id);
+            if (confirm)
+            {
+                return PartialView("_People");
+                //return View("Index");
+            }
+
+
+           return PartialView("_People");
         }
     }
 }
