@@ -28,7 +28,7 @@ $("#delete").on('click', function () {
     console.log(ID);
     $.ajax //Create Ajax call
         ({
-            type: "POST", // Here we will use  "GET" method, as we are getting data
+            type: "POST", // Here we will use  "POST" method, as we are posting data
             url: "/Ajax/Delete", // Url of service/controller
             // dataType: "json", //Datatype 
 

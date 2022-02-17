@@ -32,12 +32,12 @@ namespace LexiconMVC_ViewModels.Controllers
         // POST: PeopleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string name, string city, string phone)
+        public ActionResult Create(string name, string city, string phoneNumber)
         {
             CreatePersonViewModel createViewModel = new CreatePersonViewModel();
             createViewModel.Name = name;
             createViewModel.City = city;
-            createViewModel.PhoneNumber = phone;
+            createViewModel.PhoneNumber = phoneNumber;
             if (ModelState.IsValid)
             {
                 PersonData personData = _personDataService.Add(createViewModel);

@@ -21,6 +21,9 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
 
         public string City { get; set; }
 
+        [Required]
+        [StringLength(50, MinimumLength = 1)]
+        [Display(Name = "PhoneNumber")]
         public string PhoneNumber { get; set; }
 
         public CreatePersonViewModel() { }
