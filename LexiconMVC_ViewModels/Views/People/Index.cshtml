@@ -8,13 +8,15 @@
 <div class="pt-3">
     <form asp-action="Search">
         <input type="text" name="text"  id="searchId" />
-        <button type="submit" class="btn btn-info btn-sm rounded-0 mb-1" >Search <i class="fa fa-search"></i></button>
+        <button type="submit" class="btn btn-info btn-sm rounded-0 mb-1 text-light" style="color:white!important">Search <i class="fa fa-search"></i></button>
     </form>
 </div>
 
-<div class="row p-3 mb-5">
-    <div class="btn btn-success btn-sm rounded-0 ">
-        <a asp-action="Create" asp-controller="People" class="p-2 text-light" style="text-decoration:none">Create new</a><i class="fa fa-add"></i>
+<div class="row py-3 mb-5">
+    <div class="col">
+        <div class="btn btn-info btn-sm rounded-0">
+            <a asp-action="Create" asp-controller="People" class="p-2 text-black" style="text-decoration:none; color:white!important">Create new</a>
+        </div>
     </div>
 </div>
 

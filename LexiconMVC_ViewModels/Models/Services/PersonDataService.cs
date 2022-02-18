@@ -12,10 +12,11 @@ namespace LexiconMVC_ViewModels.Models.Services
     public class PersonDataService : IPersonDataService
     {
         private readonly IPersonDataRepo _personDataRepo;
+        private readonly ApplicationDbContext ctx;
 
-        public PersonDataService()
+        public PersonDataService(ApplicationDbContext context)
         {
-            _personDataRepo = new InMemoryPersonDataRepo();
+            _personDataRepo = new PersonDataRepo(context);
         }
 
         public PersonData Add(CreatePersonViewModel personDataVM)

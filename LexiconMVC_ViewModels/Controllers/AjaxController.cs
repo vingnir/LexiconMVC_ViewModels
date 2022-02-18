@@ -14,7 +14,7 @@ namespace LexiconMVC_ViewModels.Controllers
         private readonly IPersonDataService _personDataService;
         public AjaxController()
         {
-            _personDataService = new PersonDataService();
+            //_personDataService = new PersonDataService();
         }
         public IActionResult Index()
         {

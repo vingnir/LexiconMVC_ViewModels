@@ -1,4 +1,5 @@
 ﻿using LexiconMVC_ViewModels.Models.Entitys;
+using LexiconMVC_ViewModels.Models.Repo;
 using LexiconMVC_ViewModels.Models.Services;
 using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace LexiconMVC_ViewModels.Controllers
     public class PeopleController : Controller
     {
         private readonly IPersonDataService _personDataService;
+        private ApplicationDbContext _context;
 
         public PeopleController()
         {
-            _personDataService = new PersonDataService();
+            _context = new ApplicationDbContext();
+            _personDataService = new PersonDataService(_context);
         }
 
         // GET: PeopleController
