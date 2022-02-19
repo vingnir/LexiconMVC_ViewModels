@@ -11,7 +11,8 @@ namespace LexiconMVC_ViewModels.Models.Repo
     public class ApplicationDbContext : DbContext
     {
 
-        public ApplicationDbContext() 
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
         {
 
         }

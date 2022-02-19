@@ -1,6 +1,5 @@
 ﻿using LexiconMVC_ViewModels.Models.Entitys;
 using LexiconMVC_ViewModels.Models.Repo;
-using LexiconMVC_ViewModels.Models.Services;
 using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,19 +9,18 @@ namespace LexiconMVC_ViewModels.Controllers
 {
     public class PeopleController : Controller
     {
-        private readonly IPersonDataService _personDataService;
+       
         private ApplicationDbContext _context;
 
-        public PeopleController()
+        public PeopleController(ApplicationDbContext context)
         {
-            _context = new ApplicationDbContext();
-            _personDataService = new PersonDataService(_context);
+            _context = context;
         }
 
         // GET: PeopleController
         public ActionResult Index()
         {
-            return View(_personDataService.GetList());
+            return View(_context); //TODO
         }
 
         // GET: PeopleController/Create
@@ -43,7 +41,7 @@ namespace LexiconMVC_ViewModels.Controllers
             createViewModel.PhoneNumber = phone;
             if (ModelState.IsValid)
             {
-                PersonData personData = _personDataService.Add(createViewModel);
+               // PersonData personData = _personDataService.Add(createViewModel);
 
                 if (personData != null)
                 {
