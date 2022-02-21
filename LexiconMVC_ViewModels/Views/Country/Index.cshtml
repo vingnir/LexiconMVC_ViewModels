@@ -1,0 +1,30 @@
+﻿@model IEnumerable<LexiconMVC_ViewModels.Models.Country>
+
+@{
+    ViewData["Title"] = "Country";
+}
+
+<h1>Country</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.CountryName
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-CountryName="@item.CountryName">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

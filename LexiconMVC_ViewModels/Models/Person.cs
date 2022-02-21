@@ -14,8 +14,10 @@ namespace LexiconMVC_ViewModels.Models
 
         [Required]
         public string Name { get; set; }
-        [Required]
-        public string City { get; set; }
+       // [Required]
+        public City City { get; set; }
+
+        public List<PersonLanguage> Languages { get; set; }
         public string PhoneNumber { get; set; }
 
         public DateTime Created { get; set; }

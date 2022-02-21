@@ -1,4 +1,4 @@
-using LexiconMVC_ViewModels.Models.Repo;
+using LexiconMVC_ViewModels.Models.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
