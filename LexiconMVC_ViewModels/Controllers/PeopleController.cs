@@ -1,9 +1,11 @@
-﻿using LexiconMVC_ViewModels.Models.Entitys;
-using LexiconMVC_ViewModels.Models.Repo;
+﻿using LexiconMVC_ViewModels.Models.Repo;
+using LexiconMVC_ViewModels.Models;
 using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace LexiconMVC_ViewModels.Controllers
 {
@@ -20,7 +22,7 @@ namespace LexiconMVC_ViewModels.Controllers
         // GET: PeopleController
         public ActionResult Index()
         {
-            return View(_context); //TODO
+            return View(_context.People.ToList()); 
         }
 
         // GET: PeopleController/Create
@@ -33,143 +35,106 @@ namespace LexiconMVC_ViewModels.Controllers
         // POST: PeopleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(string name, string city, string phone)
-        {
-            CreatePersonViewModel createViewModel = new CreatePersonViewModel();
-            createViewModel.Name = name;
-            createViewModel.City = city;
-            createViewModel.PhoneNumber = phone;
+        public ActionResult Create(Person person)
+        {   
             if (ModelState.IsValid)
             {
-               // PersonData personData = _personDataService.Add(createViewModel);
-
-                if (personData != null)
-                {
-                    return RedirectToAction(nameof(Index), "People");
-                }
-
-                ModelState.AddModelError("Storage", "Failed to save");
+                _context.People.Add(person);
+                _context.SaveChanges();
             }
-
-            return View(createViewModel);
+            
+            return RedirectToAction("Index");
         }
 
         // GET: PeopleController/Details/5
         public IActionResult Details(int id)
         {
-            PersonData personData = _personDataService.GetById(id);
+                       
+            return View("Details", _context.People.Find(id));
 
-            if (personData == null)
-            {
-                return PartialView("_Details");
-            }
-            return PartialView("_Details", personData);
-           
         }
 
         // GET: PeopleController/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            PersonData personData = _personDataService.GetById(id);
-            if (personData == null)
-            {
-                return RedirectToAction(nameof(Index), "People");
-            }
-            return View(personData);
+            return View(_context.People.FirstOrDefault(x => x.Id == id)); 
         }
 
         // POST: PeopleController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, CreatePersonViewModel createViewModel)
-        {            
-                PersonData personData = _personDataService.Edit(id, createViewModel);
-
-                if (personData == null)
-                {
-                    return RedirectToAction(nameof(Index), "People");
-                }           
-
-            return View(personData);
-        }
-
-        // GET: PeopleController/Delete/5
-        [HttpGet]
-        public IActionResult Delete(int id)
+        public ActionResult Edit(Person personToEdit)
         {
-            PersonData personData = _personDataService.GetById(id);
-            if (personData == null)
-            {
-                return RedirectToAction(nameof(Index), "People");
-            }
-            return View("Delete", personData);
+                                   
+            _context.Entry(personToEdit).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(Index), "People");
         }
+
+
 
         // POST: PeopleController/Delete/5
-        [HttpPost]
+        //[HttpPost]
         //[ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, bool confirm)
+        public ActionResult Delete(int id)
         {
-            confirm = _personDataService.Delete(id);
-            if (confirm)
-            {
-                return RedirectToAction(nameof(Index), "People");
-                //return View("Index");
-            }
+            var personToDelete = _context.People.FirstOrDefault(x => x.Id == id);
+            _context.People.Remove(personToDelete);
+            _context.SaveChanges();
 
-
-            return View("Create");
+            return RedirectToAction(nameof(Index), "People");
         }
 
-        //PartialView Actions
-        
-        // GET: PeopleController/Search
-        [HttpGet]
-        public ActionResult Search()
-        {
-            return View("Index");
-        }
+        ////PartialView Actions
 
-        // GET: PeopleController/Search
-        [HttpPost]
-        public ActionResult Search(string text)
-        {
-            List<PersonData> searchResult = _personDataService.Search(text);
+        //// GET: PeopleController/Search
+        //[HttpGet]
+        //public ActionResult Search()
+        //{
+        //    return View("Index");
+        //}
+
+        //// GET: PeopleController/Search
+        //[HttpPost]
+        //public ActionResult Search(string text)
+        //{
+        //    List<PersonData> searchResult = _personDataService.Search(text);
 
 
-            if (searchResult == null)
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            return View("Index",searchResult);
+        //    if (searchResult == null)
+        //    {
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View("Index",searchResult);
 
-        }
+        //}
 
-        public IActionResult IndexPartial()
-        {
-            List<PersonData> personData = _personDataService.GetList();
-            PeopleViewModel people;
+        //public IActionResult IndexPartial()
+        //{
+        //    List<PersonData> personData = _personDataService.GetList();
+        //    PeopleViewModel people;
 
-            List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>();
+        //    List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>();
 
-            if (personData != null)
-            {
-                foreach (PersonData item in personData)
-                {
-                    people = new PeopleViewModel();
+        //    if (personData != null)
+        //    {
+        //        foreach (PersonData item in personData)
+        //        {
+        //            people = new PeopleViewModel();
 
-                    people.Id = item.Id;
-                    people.Name = item.Name;
-                    people.City = item.City;
-                    people.PhoneNumber = item.PhoneNumber;
-                    listOfPeople.Add(people);
-                }
-                
-            }
+        //            people.Id = item.Id;
+        //            people.Name = item.Name;
+        //            people.City = item.City;
+        //            people.PhoneNumber = item.PhoneNumber;
+        //            listOfPeople.Add(people);
+        //        }
 
-           
-            return View(listOfPeople);
-        }
+        //    }
+
+
+        //    return View(listOfPeople);
+        //}
     }
 }

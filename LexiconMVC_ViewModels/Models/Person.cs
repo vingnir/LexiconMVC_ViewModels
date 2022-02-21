@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LexiconMVC_ViewModels.Models.Entitys
+namespace LexiconMVC_ViewModels.Models
 {
-    public class PersonData
+    public class Person
     {
         [Key]
         public int Id { get; set; }

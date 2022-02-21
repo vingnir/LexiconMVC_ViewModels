@@ -1,4 +1,4 @@
-﻿@model List<PersonData>
+﻿@model List<Person>
 @{
     ViewData["Title"] = "People";
 }
@@ -34,7 +34,7 @@
             <tbody>
                 @if (@Model != null)
                 {
-                    @foreach (PersonData item in Model)
+                    @foreach (Person item in Model)
                     {
                 <tr>
                     <th scope="row">@item.Id</th>
@@ -49,7 +49,7 @@
                             </li>
                             <li class="list-inline-item">
 
-                                <a href="@Url.Action("Delete", "People", new { id=item.Id  })" title="Delete" class="btn btn-danger btn-sm rounded-0"> <i class="fa fa-trash"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.Id" title="Delete" class="btn btn-danger btn-sm rounded-0"> <i class="fa fa-trash"></i></a>
                             </li>
                         </ul>
                     </td>
