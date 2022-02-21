@@ -6,12 +6,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace LexiconMVC_ViewModels.Controllers
 {
     public class PeopleController : Controller
-    {
-       
+    {       
         private ApplicationDbContext _context;
 
         public PeopleController(ApplicationDbContext context)
@@ -73,11 +73,6 @@ namespace LexiconMVC_ViewModels.Controllers
             return RedirectToAction(nameof(Index), "People");
         }
 
-
-
-        // POST: PeopleController/Delete/5
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         public ActionResult Delete(int id)
         {
             var personToDelete = _context.People.FirstOrDefault(x => x.Id == id);
@@ -87,54 +82,18 @@ namespace LexiconMVC_ViewModels.Controllers
             return RedirectToAction(nameof(Index), "People");
         }
 
-        ////PartialView Actions
+        
+        public async Task<IActionResult> Search(string text)
+        {
+            var persons = from p in _context.People
+                         select p;
 
-        //// GET: PeopleController/Search
-        //[HttpGet]
-        //public ActionResult Search()
-        //{
-        //    return View("Index");
-        //}
+            if (!String.IsNullOrEmpty(text))
+            {
+                persons = persons.Where(s => s.Name!.Contains(text));
+            }
 
-        //// GET: PeopleController/Search
-        //[HttpPost]
-        //public ActionResult Search(string text)
-        //{
-        //    List<PersonData> searchResult = _personDataService.Search(text);
-
-
-        //    if (searchResult == null)
-        //    {
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View("Index",searchResult);
-
-        //}
-
-        //public IActionResult IndexPartial()
-        //{
-        //    List<PersonData> personData = _personDataService.GetList();
-        //    PeopleViewModel people;
-
-        //    List<PeopleViewModel> listOfPeople = new List<PeopleViewModel>();
-
-        //    if (personData != null)
-        //    {
-        //        foreach (PersonData item in personData)
-        //        {
-        //            people = new PeopleViewModel();
-
-        //            people.Id = item.Id;
-        //            people.Name = item.Name;
-        //            people.City = item.City;
-        //            people.PhoneNumber = item.PhoneNumber;
-        //            listOfPeople.Add(people);
-        //        }
-
-        //    }
-
-
-        //    return View(listOfPeople);
-        //}
+            return View("Index", await persons.ToListAsync());
+        }        
     }
-}
+    }
