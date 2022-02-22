@@ -8,56 +8,49 @@ using System.Threading.Tasks;
 
 namespace LexiconMVC_ViewModels.Controllers
 {
-    public class CityController : Controller
+    public class LanguageController : Controller
     {
         private ApplicationDbContext _context;
 
-        public CityController(ApplicationDbContext context)
+        public LanguageController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         public IActionResult Index()
         {
-            return View(_context.City.ToList());
+            return View(_context.Language.ToList());
         }
 
-        
 
-        // GET: CityController/Create
+
+        // GET: LanguageController/Create
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CityController/Create
+        // POST: LanguageController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(City city)
+        public ActionResult Create(Language language)
         {
             if (ModelState.IsValid)
             {
-                _context.City.Add(city);
+                _context.Language.Add(language);
                 _context.SaveChanges();
             }
 
             return RedirectToAction("Index");
         }
 
-        // GET: CityController/Details/5
-        public IActionResult Details(string CityName)
+      
+
+        public ActionResult Delete(int LanguageId)
         {
-
-            return View("Details", _context.City.Find(CityName));
-
-        }
-
-
-        public ActionResult Delete(string CityName)
-        {
-            var cityToDelete = _context.City.FirstOrDefault(x => x.CityName == CityName);
-            _context.City.Remove(cityToDelete);
+            var LanguageToDelete = _context.Language.FirstOrDefault(x => x.LanguageId == LanguageId);
+            _context.Language.Remove(LanguageToDelete);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index), "Language");

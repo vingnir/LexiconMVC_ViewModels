@@ -36,13 +36,13 @@ namespace LexiconMVC_ViewModels.Models.Data
             .WithMany(p => p.People)
             .HasForeignKey(pl => pl.LanguageId);
 
-            modelBuilder.Entity<City>().HasData(new City { CityName = "Bangkok" });
-            modelBuilder.Entity<City>().HasData(new City { CityName = "Berlin" });
-            modelBuilder.Entity<City>().HasData(new City { CityName = "Bangalore" });
+            modelBuilder.Entity<City>().HasData(new City { CityId = 007, CityName = "Bangkok" });
+            modelBuilder.Entity<City>().HasData(new City { CityId = 008, CityName = "Berlin" });
+            modelBuilder.Entity<City>().HasData(new City { CityId = 009, CityName = "Bangalore" });
 
-            modelBuilder.Entity<Country>().HasData(new Country { CountryName = "Bangladesh" });
-            modelBuilder.Entity<Country>().HasData(new Country { CountryName = "Baharain" });
-            modelBuilder.Entity<Country>().HasData(new Country { CountryName = "Spain" });
+            modelBuilder.Entity<Country>().HasData(new Country { CountryId = 117, CountryName = "Bangladesh" });
+            modelBuilder.Entity<Country>().HasData(new Country { CountryId = 118, CountryName = "Baharain" });
+            modelBuilder.Entity<Country>().HasData(new Country { CountryId = 119, CountryName = "Spain" });
 
 
             modelBuilder.Entity<Person>().HasData(new Person { Id = 666, Name = "Doggy Dog", PhoneNumber ="12345-7899" });

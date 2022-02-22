@@ -11,7 +11,6 @@ namespace LexiconMVC_ViewModels.Models
     {
         [Key]
         public int LanguageId { get; set; }
-        [Display(Name = "Name of language")]
         [Required]
         public string LanguageName { get; set; }
         //[ForeignKey("Id")]

@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LexiconMVC_ViewModels.Models
+namespace LexiconMVC_ViewModels.Models.ViewModels
 {
-    public class City
+    public class CreateCityViewModel
     {
-        [Key]
-        public int CityId { get; set; }
         [Required]
+        [StringLength(50, MinimumLength = 1)]
+        [Display(Name = "Name of City")]
+
         public string CityName { get; set; }
-        public List<Person> People { get; set; }
     }
 }
