@@ -22,13 +22,15 @@ namespace LexiconMVC_ViewModels.Controllers
         // GET: PeopleController
         public ActionResult Index()
         {
-            return View(_context.People.ToList()); 
+           // var role = PREntitiy.Roles.Include(r => r.Permission).Where(r => r.qRole == TxtRole.Text)
+            return View(_context.People.Include(c => c.City).Where(c => c.CurrentCityId == c.City.CityId).ToList()); 
         }
 
         // GET: PeopleController/Create
         [HttpGet]
         public ActionResult Create()
         {
+
             return View();
         }
 

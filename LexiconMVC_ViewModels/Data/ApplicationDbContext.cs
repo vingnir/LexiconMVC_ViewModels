@@ -36,6 +36,11 @@ namespace LexiconMVC_ViewModels.Models.Data
             .WithMany(p => p.People)
             .HasForeignKey(pl => pl.LanguageId);
 
+            modelBuilder.Entity<Person>()
+            .HasOne<City>(c => c.City)
+            .WithMany(p => p.People)
+            .HasForeignKey(s => s.CurrentCityId);
+
             modelBuilder.Entity<City>().HasData(new City { CityId = 007, CityName = "Bangkok" });
             modelBuilder.Entity<City>().HasData(new City { CityId = 008, CityName = "Berlin" });
             modelBuilder.Entity<City>().HasData(new City { CityId = 009, CityName = "Bangalore" });
@@ -45,9 +50,9 @@ namespace LexiconMVC_ViewModels.Models.Data
             modelBuilder.Entity<Country>().HasData(new Country { CountryId = 119, CountryName = "Spain" });
 
 
-            modelBuilder.Entity<Person>().HasData(new Person { Id = 666, Name = "Doggy Dog", PhoneNumber ="12345-7899" });
-            modelBuilder.Entity<Person>().HasData(new Person { Id = 999, Name = "Kalle Kanin", PhoneNumber = "12345-7585" });
-            modelBuilder.Entity<Person>().HasData(new Person { Id = 123, Name = "Hasse Hare", PhoneNumber = "12345-8522" });
+            modelBuilder.Entity<Person>().HasData(new Person { Id = 666, Name = "Doggy Dog", PhoneNumber ="12345-7899", CurrentCityId = 007 });
+            modelBuilder.Entity<Person>().HasData(new Person { Id = 999, Name = "Kalle Kanin", PhoneNumber = "12345-7585", CurrentCityId = 008 });
+            modelBuilder.Entity<Person>().HasData(new Person { Id = 123, Name = "Hasse Hare", PhoneNumber = "12345-8522", CurrentCityId = 009 });
 
             modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 123, LanguageName = "Chinese" });
             modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 124, LanguageName = "Portuguese" });

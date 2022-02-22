@@ -34,12 +34,12 @@
             <tbody>
                 @if (@Model != null)
                 {
-                    @foreach (Person item in Model)
+                    @foreach (var item in Model)
                     {
                 <tr>
                     <th scope="row">@item.Id</th>
                     <td>@item.Name</td>
-                    <td>@item.City</td>
+                    <td>@item.City.CityName </td> <!-- TODO FIX EDIT-->
                     <td>@item.PhoneNumber</td>
                     <td>
                         <!-- Call to action buttons -->

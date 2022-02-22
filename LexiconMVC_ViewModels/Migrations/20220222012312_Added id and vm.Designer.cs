@@ -4,14 +4,16 @@ using LexiconMVC_ViewModels.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LexiconMVC_ViewModels.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220222012312_Added id and vm")]
+    partial class Addedidandvm
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,11 +150,11 @@ namespace LexiconMVC_ViewModels.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
-
-                    b.Property<int>("CurrentCityId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Edited")
                         .HasColumnType("datetime2");
@@ -166,7 +168,7 @@ namespace LexiconMVC_ViewModels.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CurrentCityId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("People");
 
@@ -175,7 +177,6 @@ namespace LexiconMVC_ViewModels.Migrations
                         {
                             Id = 666,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CurrentCityId = 7,
                             Edited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Doggy Dog",
                             PhoneNumber = "12345-7899"
@@ -184,7 +185,6 @@ namespace LexiconMVC_ViewModels.Migrations
                         {
                             Id = 999,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CurrentCityId = 8,
                             Edited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Kalle Kanin",
                             PhoneNumber = "12345-7585"
@@ -193,7 +193,6 @@ namespace LexiconMVC_ViewModels.Migrations
                         {
                             Id = 123,
                             Created = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CurrentCityId = 9,
                             Edited = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Hasse Hare",
                             PhoneNumber = "12345-8522"
@@ -226,9 +225,7 @@ namespace LexiconMVC_ViewModels.Migrations
                 {
                     b.HasOne("LexiconMVC_ViewModels.Models.City", "City")
                         .WithMany("People")
-                        .HasForeignKey("CurrentCityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CityId");
                 });
 
             modelBuilder.Entity("LexiconMVC_ViewModels.Models.PersonLanguage", b =>

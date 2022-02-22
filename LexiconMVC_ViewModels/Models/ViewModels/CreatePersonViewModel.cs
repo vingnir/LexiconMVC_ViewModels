@@ -19,7 +19,7 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
         [StringLength(50, MinimumLength = 1)]
         [Display(Name = "City")]
 
-        public string City { get; set; }
+        public City City { get; set; }
 
         public string PhoneNumber { get; set; }
 
@@ -27,8 +27,9 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
 
         public CreatePersonViewModel(string name, string city, string phoneNumber)
         {
+            City City = new City();
             Name = name;
-            City = city;
+            City.CityName = city;
             PhoneNumber = phoneNumber;
         }
     }
