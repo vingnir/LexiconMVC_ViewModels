@@ -20,12 +20,21 @@ namespace LexiconMVC_ViewModels.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder); //Recommend on the first line inside method.
+
+            //#region PersonLanguage Join Class Config
+
             modelBuilder.Entity<PersonLanguage>().HasKey(pl => new { pl.PersonId, pl.LanguageId });
 
             modelBuilder.Entity<PersonLanguage>()
             .HasOne<Person>(pl => pl.Person)
             .WithMany(p => p.Languages)
             .HasForeignKey(pl => pl.PersonId);
+
+            modelBuilder.Entity<PersonLanguage>()
+            .HasOne(pl => pl.Language)
+            .WithMany(p => p.People)
+            .HasForeignKey(pl => pl.LanguageId);
 
             modelBuilder.Entity<City>().HasData(new City { CityName = "Bangkok" });
             modelBuilder.Entity<City>().HasData(new City { CityName = "Berlin" });
@@ -40,11 +49,13 @@ namespace LexiconMVC_ViewModels.Models.Data
             modelBuilder.Entity<Person>().HasData(new Person { Id = 999, Name = "Kalle Kanin", PhoneNumber = "12345-7585" });
             modelBuilder.Entity<Person>().HasData(new Person { Id = 123, Name = "Hasse Hare", PhoneNumber = "12345-8522" });
 
-            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Chinese" });
-            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Portuguese" });
-            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Spanish" });
-            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Finnish" });
-            modelBuilder.Entity<Language>().HasData(new Language { LanguageName = "Esperanto" });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 123, LanguageName = "Chinese" });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 124, LanguageName = "Portuguese" });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 125, LanguageName = "Spanish" });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 126, LanguageName = "Finnish" });
+            modelBuilder.Entity<Language>().HasData(new Language { LanguageId = 127, LanguageName = "Esperanto" });
+
+          //  #endregion
         }
 
         public DbSet<Person> People { get; set; }
