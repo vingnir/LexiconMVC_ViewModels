@@ -32,7 +32,7 @@ namespace LexiconMVC_ViewModels.Models.Data
             .HasForeignKey(pl => pl.PersonId);
 
             modelBuilder.Entity<PersonLanguage>()
-            .HasOne(pl => pl.Language)
+            .HasOne<Language>(pl => pl.Language)
             .WithMany(p => p.People)
             .HasForeignKey(pl => pl.LanguageId);
 

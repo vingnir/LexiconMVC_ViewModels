@@ -16,21 +16,11 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
         public string Name { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 1)]
         [Display(Name = "City")]
-
-        public City City { get; set; }
-
+        public int CurrentCityId { get; set; }
+       
         public string PhoneNumber { get; set; }
 
-        public CreatePersonViewModel() { }
-
-        public CreatePersonViewModel(string name, string city, string phoneNumber)
-        {
-            City City = new City();
-            Name = name;
-            City.CityName = city;
-            PhoneNumber = phoneNumber;
-        }
+        public List<City> Cities { get; set; }
     }
 }

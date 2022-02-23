@@ -30,31 +30,40 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            PopulateCityDropDownList();
-            return View();
+            CreatePersonViewModel model = new CreatePersonViewModel();
+            model.Cities = _context.City.ToList();
+            return View(model);
         }
 
         // POST: PeopleController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Person person)
+        public ActionResult Create(CreatePersonViewModel createPerson)
         {   
+           
             if (ModelState.IsValid)
             {
+                Person person = new Person()
+                {
+                    Name = createPerson.Name,
+                    CurrentCityId = createPerson.CurrentCityId,
+                    PhoneNumber = createPerson.PhoneNumber
+                };
                 _context.People.Add(person);
                 _context.SaveChanges();
+
             }
             
             return RedirectToAction("Index");
         }
 
-        private void PopulateCityDropDownList(City selectedCity = null)
-        {
-            var citiesQuery = from c in _context.City
-                                   orderby c.CityName
-                                   select c;
-            ViewData["CurrentCityId"] = new SelectList(citiesQuery, "CityId", "CityName", selectedCity);
-        }
+        //private void PopulateCityDropDownList(City selectedCity = null)
+        //{
+        //    var citiesQuery = from c in _context.City
+        //                           orderby c.CityName
+        //                           select c;
+        //    ViewData["CurrentCityId"] = new SelectList(citiesQuery, "CitId", "CityName", selectedCity);
+        //}
 
         // GET: PeopleController/Details/5
         public IActionResult Details(int id)
