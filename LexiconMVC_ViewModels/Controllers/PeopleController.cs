@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LexiconMVC_ViewModels.Controllers
 {
@@ -22,7 +23,6 @@ namespace LexiconMVC_ViewModels.Controllers
         // GET: PeopleController
         public ActionResult Index()
         {
-           // var role = PREntitiy.Roles.Include(r => r.Permission).Where(r => r.qRole == TxtRole.Text)
             return View(_context.People.Include(c => c.City).Where(c => c.CurrentCityId == c.City.CityId).ToList()); 
         }
 
@@ -30,7 +30,7 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-
+            PopulateCityDropDownList();
             return View();
         }
 
@@ -46,6 +46,14 @@ namespace LexiconMVC_ViewModels.Controllers
             }
             
             return RedirectToAction("Index");
+        }
+
+        private void PopulateCityDropDownList(City selectedCity = null)
+        {
+            var citiesQuery = from c in _context.City
+                                   orderby c.CityName
+                                   select c;
+            ViewData["CurrentCityId"] = new SelectList(citiesQuery, "CityId", "CityName", selectedCity);
         }
 
         // GET: PeopleController/Details/5
