@@ -42,11 +42,7 @@
                             <hr class="d-lg-none" />
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
-                        <li class="nav-item">
-                            <hr class="d-lg-none" />
-                            <a class="nav-link text-dark" asp-area="" asp-controller="People" asp-action="Index">People</a>
-                        </li>
-                       
+
                         <li class="nav-item dropdown">
                             <hr class="d-lg-none" />
                             <a class="nav-item nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -54,6 +50,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item disabled" href="#"><span class="text-center text-black-50">MVC Entity</span></a></li>
+                                <li><span class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="People" asp-action="Index">People</a></span></li>
                                 <li><span class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Country" asp-action="Index">Countrys</a></span></li>
                                 <li><span class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="City" asp-action="Index">Cities</a></span></li>
                                 <li><span class="dropdown-item"><a class="nav-link text-dark" asp-area="" asp-controller="Language" asp-action="Index">Languages</a></span></li>
@@ -106,10 +103,12 @@
             </span>
         </div>
     </footer>
-   
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

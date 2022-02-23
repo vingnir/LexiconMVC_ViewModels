@@ -13,13 +13,6 @@ namespace LexiconMVC_ViewModels.Models
         [Required]
         public string CityName { get; set; }
         public List<Person> People { get; set; }
-
-        public City() { }
-
-        public City(string name)
-        {
-            CityName = name;
-        }
        
     }
 }

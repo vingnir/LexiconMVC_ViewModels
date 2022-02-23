@@ -1,4 +1,4 @@
-﻿@model Person
+﻿@model CreatePersonViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -17,11 +17,25 @@
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
+                <label asp-for="CurrentCityId" class="control-label"></label>
+                <select asp-for="CurrentCityId" class="form-control">
+                    @foreach (City city in Model.Cities)
+                    {
+                        <option value="@city.CityId">@city.CityName</option>
+                    }
+                </select>
+                <span asp-validation-for="CurrentCityId" class="text-danger"></span>
             </div>
+            @*<div class="form-group">
+            <label asp-for="CurrentCityId" class="control-label"></label>
+            <input asp-for="CurrentCityId" class="form-control" />
+            <span asp-validation-for="CurrentCityId" class="text-danger"></span>
+        </div>*@
+
+
+
             <div class="form-group">
                 <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control" />

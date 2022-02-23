@@ -1,5 +1,6 @@
 ﻿using LexiconMVC_ViewModels.Models;
 using LexiconMVC_ViewModels.Models.Data;
+using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,37 +23,43 @@ namespace LexiconMVC_ViewModels.Controllers
             return View(_context.Languages.ToList());
         }
 
-
-
         // GET: LanguageController/Create
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            CreateLanguageViewModel model = new CreateLanguageViewModel();
+
+            return View(model);
         }
 
         // POST: LanguageController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Language language)
+        public ActionResult Create(CreateLanguageViewModel createLanguage)
         {
             if (ModelState.IsValid)
             {
+                Language language = new Language()
+                {
+                    LanguageName = createLanguage.LanguageName
+                };
                 _context.Languages.Add(language);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index), "Language");
         }
 
-      
-
-        public ActionResult Delete(int LanguageId)
+       
+        public ActionResult Delete(int id)
         {
-            var LanguageToDelete = _context.Languages.FirstOrDefault(x => x.LanguageId == LanguageId);
-            _context.Languages.Remove(LanguageToDelete);
-            _context.SaveChanges();
-
+            var languageToDelete = _context.Languages.FirstOrDefault(x => x.LanguageId == id);
+            if (languageToDelete != null)
+            {
+                _context.Languages.Remove(languageToDelete);
+                _context.SaveChanges();
+            }
+            
             return RedirectToAction(nameof(Index), "Language");
         }
     }
