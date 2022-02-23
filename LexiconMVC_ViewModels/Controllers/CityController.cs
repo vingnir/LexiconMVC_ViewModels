@@ -1,5 +1,6 @@
 ﻿using LexiconMVC_ViewModels.Models;
 using LexiconMVC_ViewModels.Models.Data;
+using LexiconMVC_ViewModels.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -28,21 +29,27 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            CreateCityViewModel model = new CreateCityViewModel();
+           
+            return View(model);
         }
 
         // POST: CityController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(City city)
+        public ActionResult Create(CreateCityViewModel createCity)
         {
             if (ModelState.IsValid)
             {
+                City city = new City()
+                {
+                    CityName = createCity.CityName
+                };
                 _context.Cities.Add(city);
                 _context.SaveChanges();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction(nameof(Index), "City");
         }
 
         // GET: CityController/Details/5
@@ -60,7 +67,7 @@ namespace LexiconMVC_ViewModels.Controllers
             _context.Cities.Remove(cityToDelete);
             _context.SaveChanges();
 
-            return RedirectToAction(nameof(Index), "Language");
+            return RedirectToAction(nameof(Index), "City");
         }
     }
 }

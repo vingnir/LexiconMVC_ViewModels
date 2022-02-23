@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<LexiconMVC_ViewModels.Models.Language>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Languages";
 }
 
-<h1>Index</h1>
+<h1>Language</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -12,24 +12,20 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.LanguageName)
-            </th>
-            
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LanguageName)
-            </td>
-            
-            <td>
-                <a asp-action="Delete" asp-route-LanguageId="@item.LanguageId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.LanguageName
+                </td>
+                <td>
+                    <a asp-action="Delete" asp-route-id="@item.LanguageId">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

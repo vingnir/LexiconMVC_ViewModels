@@ -9,7 +9,7 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
     public class CreateCountryViewModel
     {
         [Required]
-        [StringLength(50, MinimumLength = 1)]
+        [StringLength(50, MinimumLength = 2)]
         [Display(Name = "Name of Country")]
 
         public string CountryName { get; set; }

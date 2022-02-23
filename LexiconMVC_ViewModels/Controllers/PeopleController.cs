@@ -39,8 +39,7 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreatePersonViewModel createPerson)
-        {   
-           
+        {          
             if (ModelState.IsValid)
             {
                 Person person = new Person()
@@ -51,7 +50,6 @@ namespace LexiconMVC_ViewModels.Controllers
                 };
                 _context.People.Add(person);
                 _context.SaveChanges();
-
             }
             
             return RedirectToAction("Index");
@@ -60,29 +58,55 @@ namespace LexiconMVC_ViewModels.Controllers
         
         // GET: PeopleController/Details/5
         public IActionResult Details(int id)
-        {
-                       
+        {                     
             return View("Details", _context.People.Find(id));
-
         }
 
         // GET: PeopleController/Edit/5
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            return View(_context.People.FirstOrDefault(x => x.Id == id)); 
+           Person person = _context.People.FirstOrDefault(x => x.Id == id);
+
+            if (person == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            CreatePersonViewModel editPerson = new CreatePersonViewModel()
+            {
+                Name = person.Name,
+                CurrentCityId = person.CurrentCityId,
+                PhoneNumber = person.PhoneNumber,
+            };
+            editPerson.Cities = _context.Cities.ToList();
+
+            ViewBag.Id = id;
+
+            return View(editPerson);
         }
 
         // POST: PeopleController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Person personToEdit)
+        public ActionResult Edit(int id, CreatePersonViewModel personToEdit)
         {
-                                   
-            _context.Entry(personToEdit).State = EntityState.Modified;
-            _context.SaveChanges();
+            Person person = _context.People.FirstOrDefault(x => x.Id == id);
+            if (ModelState.IsValid)
+            {
+                person.Name = personToEdit.Name;
+                person.CurrentCityId = personToEdit.CurrentCityId;
+                person.PhoneNumber = personToEdit.PhoneNumber;
 
-            return RedirectToAction(nameof(Index), "People");
+                _context.Entry(person).State = EntityState.Modified;
+                _context.SaveChanges();
+
+                return RedirectToAction(nameof(Index));
+            }
+            personToEdit.Cities = _context.Cities.ToList();
+            ViewBag.Id = id;
+
+            return View(personToEdit);            
         }
 
         public ActionResult Delete(int id)
@@ -96,9 +120,11 @@ namespace LexiconMVC_ViewModels.Controllers
 
         
         public async Task<IActionResult> Search(string text)
-        {
+        {        
             var persons = from p in _context.People
-                         select p;
+                          select p;
+
+            persons = persons.Include(c => c.City).Where(c => c.CurrentCityId == c.City.CityId);
 
             if (!String.IsNullOrEmpty(text))
             {
