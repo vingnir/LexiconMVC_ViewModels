@@ -11,11 +11,21 @@ namespace LexiconMVC_ViewModels.Models
     {
         [Key]
         public int LanguageId { get; set; }
+        [Display(Name = "Name of language")]
         [Required]
+        [StringLength(50, MinimumLength = 2)]
         public string LanguageName { get; set; }
-        //[ForeignKey("Id")]
-        public int PersonId { get; set; }
+        
         public List<PersonLanguage> People { get; set; }
 
+        public Language()
+        {
+                
+        }
+
+        public Language(string name)
+        {
+            LanguageName = name;
+        }
     }
 }

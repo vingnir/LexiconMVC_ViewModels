@@ -64,9 +64,9 @@ namespace LexiconMVC_ViewModels.Models.Data
         }
 
         public DbSet<Person> People { get; set; }
-        public DbSet<City> City { get; set; }
-        public DbSet<Country> Country { get; set; }
-        public DbSet<PersonLanguage> PersonLanguage { get; set; }
-        public DbSet<Language> Language { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<PersonLanguage> PersonLanguages { get; set; }
+        public DbSet<Language> Languages { get; set; }
     }
 }

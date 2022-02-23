@@ -19,7 +19,7 @@ namespace LexiconMVC_ViewModels.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.City.ToList());
+            return View(_context.Cities.ToList());
         }
 
         
@@ -38,7 +38,7 @@ namespace LexiconMVC_ViewModels.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.City.Add(city);
+                _context.Cities.Add(city);
                 _context.SaveChanges();
             }
 
@@ -49,15 +49,15 @@ namespace LexiconMVC_ViewModels.Controllers
         public IActionResult Details(string CityName)
         {
 
-            return View("Details", _context.City.Find(CityName));
+            return View("Details", _context.Cities.Find(CityName));
 
         }
 
 
         public ActionResult Delete(string CityName)
         {
-            var cityToDelete = _context.City.FirstOrDefault(x => x.CityName == CityName);
-            _context.City.Remove(cityToDelete);
+            var cityToDelete = _context.Cities.FirstOrDefault(x => x.CityName == CityName);
+            _context.Cities.Remove(cityToDelete);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index), "Language");

@@ -19,7 +19,7 @@ namespace LexiconMVC_ViewModels.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Language.ToList());
+            return View(_context.Languages.ToList());
         }
 
 
@@ -38,7 +38,7 @@ namespace LexiconMVC_ViewModels.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Language.Add(language);
+                _context.Languages.Add(language);
                 _context.SaveChanges();
             }
 
@@ -49,8 +49,8 @@ namespace LexiconMVC_ViewModels.Controllers
 
         public ActionResult Delete(int LanguageId)
         {
-            var LanguageToDelete = _context.Language.FirstOrDefault(x => x.LanguageId == LanguageId);
-            _context.Language.Remove(LanguageToDelete);
+            var LanguageToDelete = _context.Languages.FirstOrDefault(x => x.LanguageId == LanguageId);
+            _context.Languages.Remove(LanguageToDelete);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index), "Language");

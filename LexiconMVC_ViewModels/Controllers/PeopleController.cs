@@ -31,7 +31,7 @@ namespace LexiconMVC_ViewModels.Controllers
         public ActionResult Create()
         {
             CreatePersonViewModel model = new CreatePersonViewModel();
-            model.Cities = _context.City.ToList();
+            model.Cities = _context.Cities.ToList();
             return View(model);
         }
 
@@ -57,14 +57,7 @@ namespace LexiconMVC_ViewModels.Controllers
             return RedirectToAction("Index");
         }
 
-        //private void PopulateCityDropDownList(City selectedCity = null)
-        //{
-        //    var citiesQuery = from c in _context.City
-        //                           orderby c.CityName
-        //                           select c;
-        //    ViewData["CurrentCityId"] = new SelectList(citiesQuery, "CitId", "CityName", selectedCity);
-        //}
-
+        
         // GET: PeopleController/Details/5
         public IActionResult Details(int id)
         {

@@ -20,7 +20,7 @@ namespace LexiconMVC_ViewModels.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.Country.ToList());
+            return View(_context.Countries.ToList());
         }
 
         // GET: CountryController/Create
@@ -37,7 +37,7 @@ namespace LexiconMVC_ViewModels.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Country.Add(country);
+                _context.Countries.Add(country);
                 _context.SaveChanges();
             }
 
@@ -48,15 +48,15 @@ namespace LexiconMVC_ViewModels.Controllers
         public IActionResult Details(string CountryName)
         {
 
-            return View("Details", _context.Country.Find(CountryName));
+            return View("Details", _context.Countries.Find(CountryName));
 
         }
 
         
         public ActionResult Delete(string CountryName)
         {
-            var countryToDelete = _context.Country.FirstOrDefault(x => x.CountryName == CountryName);
-            _context.Country.Remove(countryToDelete);
+            var countryToDelete = _context.Countries.FirstOrDefault(x => x.CountryName == CountryName);
+            _context.Countries.Remove(countryToDelete);
             _context.SaveChanges();
 
             return RedirectToAction(nameof(Index), "Country");

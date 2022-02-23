@@ -22,5 +22,7 @@ namespace LexiconMVC_ViewModels.Models.ViewModels
         public string PhoneNumber { get; set; }
 
         public List<City> Cities { get; set; }
+
+        public List<PersonLanguage> Languages { get; set; }
     }
 }

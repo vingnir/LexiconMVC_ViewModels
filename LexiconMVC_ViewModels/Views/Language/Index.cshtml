@@ -15,9 +15,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.LanguageName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PersonId)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -27,9 +25,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LanguageName)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PersonId)
-            </td>
+            
             <td>
                 <a asp-action="Delete" asp-route-LanguageId="@item.LanguageId">Delete</a>
             </td>

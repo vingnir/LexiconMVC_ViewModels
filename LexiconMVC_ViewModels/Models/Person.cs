@@ -14,7 +14,7 @@ namespace LexiconMVC_ViewModels.Models
 
         [Required]
         public string Name { get; set; }
-
+        [Required]
         [ForeignKey("City")]
         public int CurrentCityId { get; set; }
         public City City { get; set; }

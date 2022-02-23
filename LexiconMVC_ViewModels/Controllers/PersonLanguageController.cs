@@ -21,7 +21,7 @@ namespace LexiconMVC_ViewModels.Controllers
         public IActionResult Index()
         {
             ViewData["PersonId"] = new SelectList(_context.People, "Id", "Name");
-            ViewData["LanguageId"] = new SelectList(_context.Language, "LanguageId", "LanguageName");
+            ViewData["LanguageId"] = new SelectList(_context.Languages, "LanguageId", "LanguageName");
 
             return View();
         }
@@ -29,7 +29,7 @@ namespace LexiconMVC_ViewModels.Controllers
         [HttpPost]
         public IActionResult CreatePersonLanguage(PersonLanguage personLanguage)
         {
-            _context.PersonLanguage.Add(personLanguage);
+            _context.PersonLanguages.Add(personLanguage);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
