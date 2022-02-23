@@ -19,7 +19,6 @@ namespace LexiconMVC_ViewModels.Models
         public City(string name)
         {
             CityName = name;
-        }
-       
+        }       
     }
 }
