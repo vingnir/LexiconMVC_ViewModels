@@ -18,14 +18,5 @@ namespace LexiconMVC_ViewModels.Models
         
         public List<PersonLanguage> People { get; set; }
 
-        public Language()
-        {
-                
-        }
-
-        public Language(string name)
-        {
-            LanguageName = name;
-        }
     }
 }
